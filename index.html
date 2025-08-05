@@ -1,0 +1,107 @@
+ html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Senhas V2</title>
+ 
+</head>
+<body>
+  <div class="container">
+    <h1>🔐 Gerador de Senhas V2</h1>
+    <input type="text" id="senha" readonly>
+    <button onclick="gerarSenha()">🔁 Gerar Senha</button>
+    <button onclick="copiarSenha()">📋 Copiar</button>
+    <label><input type="checkbox" id="realista" checked> Senha realista (nomes, datas)</label>
+  </div>
+
+</body>
+</html>
+<style>
+  body {
+  background-color: #121212;
+  color: #fff;
+  font-family: monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  text-align: center;
+  background-color: #1e1e1e;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px #00ffbb;
+}
+
+input[type="text"] {
+  width: 90%;
+  padding: 10px;
+  margin: 15px 0;
+  border: none;
+  border-radius: 6px;
+  font-size: 18px;
+  text-align: center;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  background: #00ffbb;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #00cc99;
+}
+</style>
+<script>function gerarSenha() {
+  const nomes =["maria", "joao", "luna", "pedro", "lucas", "admin", "carla", "felipe", "ana", "ricardo", "julia", "roberto", "beatriz", "tiago", "fernanda", "carlos", "patricia", "rafael", "luana", "victor", 
+ "marcos", "camila", "daniela", "gabriel", "monique", "gustavo", "aline", "fabio", "luiz", "viviane", "sandra", "cintia", "mariana", "eduardo", "samantha", "vitoria", "carolina", "bruno", 
+ "adriana", "diego", "bruna", "andre", "patricia", "luciana", "roberto", "laura", "felipe", "sergio", "thais", "michele", "renato", "claudia", "valeria", "beatriz", "eliane", "erika", 
+ "silvia", "lucas", "ana paula", "sandra", "tais", "gustavo", "elena", "hugo"]
+
+;
+  const datas = ["2003", "1999", "2025", "123", "321", "042", "1995", "2001", "2022", "1987", "2015", "2020", "1993", "2008", "1985", "2009", "2010", "1998", "2000", "2005", "1990", "2018", "2017", 
+ "2016", "1989", "2024", "1992", "1980", "1983", "2019", "2023", "1982", "2006", "2007", "2014", "1997", "1984", "2026", "1988", "2013", "1994", "2021", "1996", "1986", "2012", 
+ "2004", "2027", "2011", "2002", "1981", "2028", "2000", "1991", "2003", "1999", "1984", "2015", "1990", "2029", "1998", "2009", "2018", "1992", "1997", "2020", "2025", "2017", 
+ "1983", "2006", "2016", "2024", "2023", "2022", "2014", "2020", "2026", "2010"]
+
+  const simbolos = "!@#$%&*?".split("");
+  const letras = "abcdefghijklmnopqrstuvwxyz";
+  const tudo = letras + letras.toUpperCase() + "0123456789" + simbolos.join("");
+  const usarRealista = document.getElementById("realista").checked;
+
+  let senha = "";
+
+  if (usarRealista && Math.random() > 0.3) {
+    senha += nomes[Math.floor(Math.random() * nomes.length)];
+    senha += datas[Math.floor(Math.random() * datas.length)];
+    senha += simbolos[Math.floor(Math.random() * simbolos.length)];
+  } else {
+    for (let i = 0; i < 12; i++) {
+      senha += tudo.charAt(Math.floor(Math.random() * tudo.length));
+    }
+  }
+
+  document.getElementById("senha").value = senha;
+}
+
+function copiarSenha() {
+  const input = document.getElementById("senha");
+  if (input.value !== "") {
+    input.select();
+    input.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+    alert("Senha copiada! 🔒");
+  } else {
+    alert("Gere uma senha primeiro! 😅");
+  }
+}</script>
